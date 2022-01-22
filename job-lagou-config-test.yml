@@ -1,1 +1,60 @@
+spring:
+  datasource:
+    url: jdbc:mysql://139.196.79.22:3306/test?serverTimezone=UTC&useSSL=false&characterEncoding=utf-8&autoReconnect=true
+    username: root
+    password: 123456
+    #使用druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 下面为连接池的补充设置，应用到上面所有数据源中
+      # 初始化大小，最小，最大
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: true
 
+# 邮件参数设置
+  mail:
+    # 配置 SMTP 服务器地址
+    host: smtp.qq.com
+    # 发送者邮箱
+    username: 1225913754@qq.com
+    # 配置密码，注意不是真正的密码，而是刚刚申请到的授权码
+    password: bruiydznovbmfjfd
+    # 端口号465或587
+    port: 587
+    # 默认的邮件编码为UTF-8
+    default-encoding: UTF-8
+    # 配置SSL 加密工厂
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        #表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
+
+# 验证码超时时间（单位秒）
+code:
+  timeout: 600
+  
+# IP 防爆刷时间限制
+ip:
+  #1 秒
+  x: 60
+  # x 秒产生多少个令牌,目前配置60秒产生10个令牌
+  y: 10
+  
+#接口白名单设置
+interfaces:
+  whiteList: /lagouuser/user/register,/lagouuser/user/login,/lagoucode/code/createCodeAndSendEmail
