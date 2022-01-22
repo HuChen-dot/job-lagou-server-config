@@ -1,11 +1,4 @@
-server:
-  port: 8780
-  servlet:
-    context-path: /lagoucode
-
 spring:
-  application:
-    name: lagou-service-code
   datasource:
     url: jdbc:mysql://139.196.79.22:3306/test?serverTimezone=UTC&useSSL=false&characterEncoding=utf-8&autoReconnect=true
     username: root
@@ -31,41 +24,37 @@ spring:
       # 打开PSCache，并且指定每个连接上PSCache的大小
       pool-prepared-statements: true
 
-#指定Mapper映射文件的位置和Mapper接口位置
-mybatis:
-  # 扫描mapper.xml文件所在位置
-  mapper-locations: classpath:mapper/**.xml
-  # 配置别名映射
-  type-aliases-package: com.code.pojo.*
-  configuration:
-    #开启驼峰映射
-    map-underscore-to-camel-case: true
-#如果没有整合logback日志，则需要单独将mapper接口的路径日志级别设置成debug
-#这样才能打印出sql语句
-logging:
-  level:
-    com.code: debug
+# 邮件参数设置
+  mail:
+    # 配置 SMTP 服务器地址
+    host: smtp.qq.com
+    # 发送者邮箱
+    username: 1225913754@qq.com
+    # 配置密码，注意不是真正的密码，而是刚刚申请到的授权码
+    password: bruiydznovbmfjfd
+    # 端口号465或587
+    port: 587
+    # 默认的邮件编码为UTF-8
+    default-encoding: UTF-8
+    # 配置SSL 加密工厂
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        #表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
 
-eureka:
-  instance:
-    hostname: 127.0.0.1 #代表当前eureka主机地址
-  client:
-    service-url: # 客户端与EurekaServer交互的地址，如果是集群，需要写成其它Eureka服务的地址
-      defaultZone: http://127.0.0.1:8091/eureka/,http://127.0.0.1:8092/eureka/
-    #代表当前服务是否要注册到eureka中，true代表注册，false代表不注册，因为当前工程自己就是eureka工程服务，所以不需要注册
-    register-with-eureka: true
-    #代表当前服务是否要从eureka中获取服务，true代表获取，false代表不获取，因为当前工程自己就是eureka工程服务，所以不需要获取
-    fetch-registry: true
-
-ribbon:
-  #请求处理超时时间（毫秒）
-  ReadTimeout: 2000
-  #是否对所有请求操作都进⾏重试
-  OkToRetryOnAllOperations: true
-  MaxAutoRetries: 1 #对当前选中实例重试次数，不包括第⼀次调⽤
-  MaxAutoRetriesNextServer: 1 #切换实例的重试次数
-  #定义ribbon负载均衡策略
-  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
-
+# 验证码超时时间（单位秒）
 code:
   timeout: 600
+  
+# IP 防爆刷时间限制
+ip:
+  #1 秒
+  x: 60
+  # x 秒产生多少个令牌,目前配置60秒产生10个令牌
+  y: 10
+  
+#接口白名单设置
+interfaces:
+  whiteList: /lagouuser/user/register,/lagouuser/user/login,/lagoucode/code/createCodeAndSendEmail
