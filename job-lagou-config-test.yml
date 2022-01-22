@@ -46,7 +46,7 @@ spring:
 
 # 验证码超时时间（单位秒）
 code:
-  timeout: 600
+  timeout: 60
   
 # IP 防爆刷时间限制
 ip:
