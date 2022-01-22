@@ -57,4 +57,4 @@ ip:
   
 #接口白名单设置
 interfaces:
-  whiteList: /lagouuser/user/register,/lagouuser/user/login,/lagoucode/code/createCodeAndSendEmail
+  whiteList: /lagouuser/user/register,/lagouuser/user/login
